@@ -1,45 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Random Book Generator</title>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Book Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #007bff;
+            margin-top: 50px;
+        }
+
+        h3 {
+            color: #6c757d;
+            margin-top: 20px;
+        }
+
+        #bookInfo {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 400px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-<h1>Random Book Generator</h1>
-<h3>a website by <a href=https://rileeyyy.github.io>riley</a></h3>
-<div id="bookInfo">
-  <p><strong>Title:</strong> <span id="title"></span></p>
-  <p><strong>Author:</strong> <span id="author"></span></p>
-  <p><strong>Number of Pages:</strong> <span id="pages"></span></p>
-  <p><strong>Subjects:</strong> <span id="subjects"></span></p>
-</div>
-<button onclick="getRandomBook()">Generate Random Book</button>
-<script>
-async function getRandomBook() {
-  const subjects = ['fiction', 'nonfiction', 'fantasy', 'mystery', 'science fiction', 'thriller'];
-  const randomIndex = Math.floor(Math.random() * subjects.length);
-  const subject = subjects[randomIndex];
-  const url = `https://openlibrary.org/subjects/${subject}.json?limit=5`; 
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    const books = data.works;
-    const randomBook = books[Math.floor(Math.random() * books.length)];
-    document.getElementById('title').textContent = randomBook.title || 'Title not available';
-    document.getElementById('author').textContent = randomBook.authors ? randomBook.authors[0].name : 'Author not available';
-    document.getElementById('pages').textContent = randomBook.number_of_pages ? randomBook.number_of_pages : 'Number of pages not available';
-    document.getElementById('subjects').textContent = subject; // Display the selected subject
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-}
-</script>
+    <h1>Random Book Generator</h1>
+    <h3>a website by <a href="https://rileeyyy.github.io">riley</a></h3>
+    <div id="bookInfo">
+        <p><strong>Title:</strong> <span id="title"></span></p>
+        <p><strong>Author:</strong> <span id="author"></span></p>
+        <p><strong>Number of Pages:</strong> <span id="pages"></span></p>
+        <p><strong>Subjects:</strong> <span id="subjects"></span></p>
+    </div>
+    <button onclick="getRandomBook()">Generate Random Book</button>
+    <script>
+        async function getRandomBook() {
+            const subjects = ['fiction', 'nonfiction', 'fantasy', 'mystery', 'science fiction', 'thriller'];
+            const randomIndex = Math.floor(Math.random() * subjects.length);
+            const subject = subjects[randomIndex];
+            const url = `https://openlibrary.org/subjects/${subject}.json?limit=5`;
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                const books = data.works;
+                const randomBook = books[Math.floor(Math.random() * books.length)];
+                document.getElementById('title').textContent = randomBook.title || 'Title not available';
+                document.getElementById('author').textContent = randomBook.authors ? randomBook.authors[0].name : 'Author not available';
+                document.getElementById('pages').textContent = randomBook.number_of_pages ? randomBook.number_of_pages : 'Number of pages not available';
+                document.getElementById('subjects').textContent = subject;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+    </script>
 </body>
 </html>
+
